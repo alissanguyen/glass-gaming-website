@@ -4,38 +4,13 @@ import GameIcon from "./assets/steam.png";
 import LinkIcon from "./assets/upcoming.png";
 import LibraryIcon from "./assets/library.png";
 import ControllerIcon from "./assets/controller.png";
-import AssassinIcon from "./assets/assassins.png";
-import SackboyIcon from "./assets/sackboy.png";
-import SpidermanIcon from "./assets/spiderman.png";
 import * as React from "react";
-import Card from "./Card";
+import ActiveGames from "./ActiveGames";
+import Games from "./Games";
+import Oops from "./Oops";
 
 const Dashboard = () => {
-  const games = [
-    {
-      icon: AssassinIcon,
-      name: "Assassins Creed Valhalla",
-      version: "PS5 Version",
-      progress: "60%",
-    },
-    {
-      icon: SackboyIcon,
-      name: "Sackboy A Great Advanture",
-      version: "PS5 Version",
-      progress: "60%",
-    },
-    {
-      icon: SpidermanIcon,
-      name: "Spiderman Miles Morales",
-      version: "PS5 Version",
-      progress: "60%",
-    },
-  ];
-
-  const [input, setInput] = React.useState("");
-
-  const filteredGames = games.filter((game) => game.name.includes(input));
-
+  const [currentFolder, setCurrentFolder] = React.useState("active");
   return (
     <>
       <div className="dashboard">
@@ -47,19 +22,47 @@ const Dashboard = () => {
         <div className="links">
           <div className="link">
             <img src={StreamIcon} alt="" />
-            <h2>Streams</h2>
+            <h2
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentFolder("active");
+              }}
+            >
+              Streams
+            </h2>
           </div>
           <div className="link">
             <img src={GameIcon} alt="" />
-            <h2>Games</h2>
+            <h2
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentFolder("games");
+              }}
+            >
+              Games
+            </h2>
           </div>
           <div className="link">
             <img src={LinkIcon} alt="" />
-            <h2>New</h2>
+            <h2
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentFolder("oops");
+              }}
+            >
+              New
+            </h2>
           </div>
           <div className="link">
             <img src={LibraryIcon} alt="" />
-            <h2>Library</h2>
+            <h2
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentFolder("oops");
+              }}
+            >
+              Library
+            </h2>
           </div>
         </div>
         <div className="pro">
@@ -67,24 +70,13 @@ const Dashboard = () => {
           <img src={ControllerIcon} alt="" />
         </div>
       </div>
-      <div className="games">
-        <div className="status">
-          <h1>Active Games</h1>
-          <input
-            type="text"
-            onChange={(e) => {
-              e.preventDefault();
-              setInput(e.target.value);
-            }}
-            placeholder="search game..."
-          />
-        </div>
-        <div className="cards">
-          {filteredGames.map((game) => (
-            <Card game={game} />
-          ))}
-        </div>
-      </div>
+      {currentFolder === "active" ? (
+        <ActiveGames />
+      ) : currentFolder === "games" ? (
+        <Games />
+      ) : (
+        <Oops />
+      )}
     </>
   );
 };
