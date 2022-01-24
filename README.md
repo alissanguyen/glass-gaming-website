@@ -1,6 +1,6 @@
 ### Glass Gaming
 
-URL https://githubspotter.alissanguyen.dev
+URL https://glassgaming.alissanguyen.dev
 
 ## About
 Glass Gaming is a landing page for gamers to track your gaming progress with glass-like and neumorphism design.
